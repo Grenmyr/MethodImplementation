@@ -1,0 +1,47 @@
+
+
+JAVASCRIPT
+Searchword "chat"
+https://github.com/ishan-marikar/PrivateWebChat.git
+Searchword "write"
+https://github.com/FTWinston/GraphWriter.git
+Searchword "project to"
+https://github.com/krilleha/Mithril.git
+searchword "client app"
+https://github.com/ronenmiz/appflinger-js.git
+searchword "library"
+https://github.com/waltersoto/bloq.git
+searchword "small game"
+https://github.com/judges119/holiday-auto-game.git
+searchword "streaming"
+https://github.com/ViMaSter/rbtv_schedule
+searchword "analyze"
+https://github.com/mrkabala/NfcAnalyzer.git
+searchword "convert"
+https://github.com/yanli0303/javascript-date-format.git
+searchword "sale"
+https://github.com/taylorjg/SalesTaxes_JavaScript.git
+
+
+
+C#
+Searchword "chat"
+https://github.com/ishan-marikar/ChatBot-Mark-II.git
+Searchword "write"
+https://github.com/FTWinston/MapFarce.git
+Searchword "project to"
+https://github.com/krilleha/EventSourcing.git
+searchword "client app"
+https://github.com/ronenmiz/appflinger-mediaroom.git
+searchword "library"
+https://github.com/waltersoto/PortableMD5.git
+searchword "small game"
+https://github.com/judges119/3d-object-finder.git
+searchword "streaming"
+https://github.com/ViMaSter/foobar_readout.git
+searchword "analyze"
+https://github.com/mrkabala/NfcAnalyzerWP8.git
+searchword "convert"
+https://github.com/yanli0303/DotNetResourceSerializer.git
+searchword "sale"
+https://github.com/taylorjg/SalesTaxes_CSharp.git
