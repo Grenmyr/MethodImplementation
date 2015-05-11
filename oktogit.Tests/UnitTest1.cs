@@ -11,11 +11,12 @@ namespace oktogit.Tests
         [TestMethod]
         public async Task TestMethod1()
         {
-            var go = new RepositorySearch("key",new string [] {"Grenmyr","password"});
+            var go = new RepositorySearch("key",new string [] {"insertGithubYourUserName","insertyourGithubPassword"});
             await go.GetTopRatedReposLanguageCSharp();
             await go.GetTopRatedReposLanguageJavascript();
 
             go.GetMatch();
+            //
         }
 
         [TestMethod]

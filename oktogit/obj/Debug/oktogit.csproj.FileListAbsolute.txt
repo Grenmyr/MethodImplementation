@@ -7,3 +7,11 @@ C:\Users\dav\Documents\GitHub\oktogit\oktogit\bin\Octokit.xml
 C:\Users\dav\Documents\GitHub\oktogit\oktogit\obj\Debug\oktogit.dll
 C:\Users\dav\Documents\GitHub\oktogit\oktogit\obj\Debug\oktogit.pdb
 C:\Users\dav\Documents\GitHub\oktogit\oktogit\obj\Debug\oktogit.csprojResolveAssemblyReference.cache
+C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit\bin\oktogit.dll.config
+C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit\bin\oktogit.dll
+C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit\bin\oktogit.pdb
+C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit\bin\Octokit.dll
+C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit\bin\Octokit.pdb
+C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit\bin\Octokit.xml
+C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit\obj\Debug\oktogit.dll
+C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit\obj\Debug\oktogit.pdb
