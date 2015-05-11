@@ -1,73 +1,990 @@
-        // Connection with authentication for github api.
-        // List with C# repositories
-        // List with JS repositories.
-        // List of C# repositories that also has user that written repo in JS.
-        // List of JS repositories that also has user that written repo in C#.
-            //var github = new Octokit.GitHubClient(connection);
-            //var query = new SearchRepositoriesRequest("application");
-            //query.Language = Language.CSharp;
-            //query.SortField = RepoSearchSort.Stars;
-        // tom
-        // Get all files in folder and subfolders that contain .cs as filending
-        /// <summary>
-        /// Main Method to analyze all files in filePaths array
-        /// </summary>
-            // Total lines scanned
-            // Total amount of lines with comments // or /**/
-            // Total amount of lines with comments // or /**/
-            int totalCommentLines = 0;
-            // Total length by char of all comments.
-            int totalCommentsLength = 0;
-            // Total mount of todo comments
-            int todoComment = 0;
-            using (TextWriter tw = new StreamWriter("CommentSummary.txt"))
-            {
-                // loop through all files
-                foreach (var item in filePaths)
-                {
-                    // exclude all files that start with AssemblyInfo
-                    if (!item.Contains("AssemblyInfo"))
-                    {
-                        string line;
-                        using (StreamReader reader = new StreamReader(item))
-                        {
-                            while ((line = reader.ReadLine()) != null)
-                            {
-                                // Add one line for eatch line in file.
-                                totalLines++;
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\3d-object-finder\Environment.cs
 
-                                if (line.Contains("//"))
-                                {
-                                    tw.WriteLine(line);
-                                    totalCommentLines++;
-                                    totalCommentsLength += line.Length;
+	//Private variables
+	GameObject[] enviroObjects = new GameObject[50]; //Extra objects in scene
+	GameObject targetObject; //Target object in scene
+	bool finished = false; //Finished game boolean
+	//For GUI events
+		if (finished) { //If game is finished
+			if (GUI.Button(new Rect(Screen.width / 6, Screen.height / 5, Screen.width / 6 * 2, Screen.height / 5 * 2), "Restart")) { //Display button to Restart and if pressed...
+				Application.LoadLevel(Application.loadedLevel); //Restart game
+			if (GUI.Button(new Rect(Screen.width / 6 * 3, Screen.height / 5, Screen.width / 6 * 2, Screen.height / 5 * 2), "Quit")) { //Display button to Quit and if pressed...
+				Application.Quit(); //Quit
+	// Use this for initialization
+		GameObject tempObject; //Temporary object
+		tempObject = GameObject.CreatePrimitive(PrimitiveType.Sphere); //Sphere type for target object
+		targetObject = Instantiate(tempObject) as GameObject; //Create a sphere for the target object
+		targetObject.transform.position = new Vector3(Random.value * 100 - 50, Random.value * 100 - 50, Random.value * 100 - 50); //Set location of target object sphere
+		tempObject = GameObject.CreatePrimitive(PrimitiveType.Cube); //Cube type for target object
+			enviroObjects[i] = Instantiate(tempObject) as GameObject; //Create cube objects for each extra object
+			enviroObjects[i].transform.position = new Vector3(Random.value * 100 - 50, Random.value * 100 - 50, Random.value * 100 - 50); //Set locations of extra objects
+			enviroObjects[i].transform.eulerAngles = new Vector3(Random.value * (360 - 1), Random.value * (360 - 1), Random.value * (360 - 1)); //Rotate cubes randomly
+	// Update is called once per frame
+		foreach (LeapConnect2.FingerStruct f in LeapConnect2.fingers) { //For each finger
+			if (f.fingerUpd != null) { //If the finger isn't null
+				if (f.fingerObj.renderer.bounds.Intersects(targetObject.renderer.bounds)) { //If the finger collides with target sphere
+					targetObject.renderer.material.color = new Color(1, 0, 0, 0); //Set the target sphere colour to red
+					finished = true; //Set game to finished
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\3d-object-finder\LeapConnect2.cs
 
-                                    if (line.Contains("TODO"))
-                                    {
-                                        todoComment++;
-                                    }
+	//Public Variables
+	public GameObject m_PalmTemplate; //The template object to use for the palm
+	public GameObject m_FingerTemplate; //The template object to use for fingers
+	public static Frame m_Frame	= null; //Frame object for access to all leap data in the frame
+	public static Frame lastFrame = null; //Frame object holding all data for previous frame
+	public static HandStruct[] hands = new HandStruct[3]; //Structure to hold hand data, static for easy external access
+	public static FingerStruct[] fingers = new FingerStruct[10]; //Structure to hold finger data, static for easy external access
+	public static GestureList gestures = new GestureList(); //Holds a list of all the gestures in the current frame
+	public static InteractionBox interactionBox = new InteractionBox(); //Interaction box for normalising vectors in Leap view
+	public struct HandStruct { //Struct to store hand data, includes  Leap (handUpd), Unity object (handObj) and palm position in Leap interaction box
+	public struct FingerStruct { //Struct to store finger data, includes Leap (fingerUpd), Unity object (fingerObj) and tip position in Leap interaction box
+	//Private Variables
+	//Catch latest frame
+	//Use this for initialization
+		//m_controller.EnableGesture(Gesture.GestureType.TYPECIRCLE);
+		//m_controller.EnableGesture(Gesture.GestureType.TYPESCREENTAP);
+	//Update is called once per frame
+		//Get interaction box for this frame
+		//Deal with hands
+		//Deal with fingers
+		//Deal with gestures
+	//Add hands, up to a maximum of three (2 real, one accidental)
+		foreach (Hand h in m_Frame.Hands) { //For each hand in Leap frame, if not existing in Unity hands array, add to spot (if available) in hand structure and create object for it
+	//Update hands that are in view
+		for (int i = 0; i < hands.Length; i++) {	//For each hand in Unity hands array, update HandStruct.handUpd info and position/rotation of HandStruct.handObj in scene
+	//Remove unnecessary hands as they disappear from view
+			if (handlost) { //If hand is not in frame, destroy the gameObject for it and set both HandStruct properties to null
+	//Add fingers, up to a maximum of 10
+		foreach (Finger f in m_Frame.Fingers) { //For each finger in Leap frame, if it's new, add it to fingers array (if spot available) and create object for it
+	//Update fingers that are in view
+		for (int i = 0; i < fingers.Length; i++) { //For each finger in Unity fingers array, update FingerStruct.fingerUpd info with new Leap frame info and FingerStruct.fingerObj location in scene
+				//Don't need this part, can be used for visual identification if your project invokes the adaptive touch plane
+	//Remove unnecessary fingers as they disappear from view
+			if (fingerlost) { //If finger not in Leap frame, destroy finger object and set FingerStruct properties to null
+	//Load all gestures from the new frame
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\3d-object-finder\LeapMovement.cs
 
-                                }
+	// Use this for initialization
+	// Update is called once per frame
+	//Move camera based on movement of a controlling hand
+		foreach (LeapConnect2.HandStruct h in LeapConnect2.hands) { //For each hand...
+			if (h.handUpd != null) { //If it's not null...
+				if (h.handUpd.Fingers.Count > 3) { //If there's more than 3 fingers available
+					availableHands++; //Increment available hands value
+			foreach (LeapConnect2.HandStruct h in LeapConnect2.hands) { //For each hand...
+				if (h.handUpd != null) { //If it's not null...
+					if (h.handUpd.Fingers.Count > 3) { //If there's more than three fingers...
+							gameObject.transform.Rotate(Vector3.forward, h.handUpd.RotationAngle(LeapConnect2.lastFrame) * 75); //Rotate around the forward (z-axis local to main camera) axis by the angle of the hand's rotation (compared to last frame)
+							gameObject.transform.Rotate(Vector3.forward * -1, h.handUpd.RotationAngle(LeapConnect2.lastFrame) * 75); //Rotate around the backward (z-axis local to main camera) axis by the angle of the hand's rotation (compared to last frame)
+						if (h.handUpd.TranslationProbability(LeapConnect2.lastFrame) > 0.5) { //If probability of translation is greater than 50%...
+							gameObject.transform.Rotate(Vector3.up, h.handUpd.Translation(LeapConnect2.lastFrame).x); //Horizontal translation equals y-axis rotation
+							gameObject.transform.Rotate(Vector3.left, h.handUpd.Translation(LeapConnect2.lastFrame).y); //Vertical translation equals x-axis rotation
+	//Moves camera forward/backward by doing a "zooming" motion with hands, that is two open hands moved apart or closer togetheru
+	//This is the old method that sped you forward when two open hands were held over the controller (was supposed to be based on their distance apart, but never worked on perfecting it to that)
+		float[] closestZHands = new float[3] {-1, -1, 10}; //Array to hold pair of hands with smallest z-axis difference, difference set higher than possible normalised values
+		for (int i = 0; i < LeapConnect2.hands.Length; i++) { //Compare each hand
+			for (int j = i + 1; j < LeapConnect2.hands.Length; j++) { //Against each other hand in the LeapConnect2.hands array, without doubling up on comparisons
+				if ((LeapConnect2.hands[i].handUpd != null) && (LeapConnect2.hands[j].handUpd != null)) { //If both hands are not null
+					if ((LeapConnect2.hands[i].handUpd.Fingers.Count > 3) && (LeapConnect2.hands[j].handUpd.Fingers.Count > 3)) { //If both hands have more than three fingers showing
+						if (closestZHands[2] > Mathf.Abs(LeapConnect2.hands[i].boxPosition.z - LeapConnect2.hands[j].boxPosition.z)) { //If stored record of highest z-axis difference is greater than new z-axis difference...
+							closestZHands[0] = i; //Update record with new hand references and z-axis difference (absolute)
+		if (closestZHands[0] >= 0) { //If closestZHands has real values (not initial useless ones)
+			Vector firstHand = new Vector(LeapConnect2.hands[(int) closestZHands[0]].boxPosition.x, LeapConnect2.hands[(int) closestZHands[0]].boxPosition.y, 0); //First vector without z-axis
+			Vector secondHand = new Vector(LeapConnect2.hands[(int) closestZHands[1]].boxPosition.x, LeapConnect2.hands[(int) closestZHands[1]].boxPosition.y, 0); //Second vector without z-axis
+			float distance = firstHand.DistanceTo(secondHand); //Distance between both vectors
+			gameObject.transform.Translate(Vector3.forward * distance / 5); //Move camera forward by distance
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\appflinger-mediaroom\AppFlinger.net\appflinger.cs
 
-                                if (line.Contains("/*"))
-                                {
-                                    tw.WriteLine(line);
-                                    totalCommentLines++;
-                                    totalCommentsLength += line.Length;
+        // Network state constants
+        // Ready state constants
+             // Encode to JSON
+                    // Make a long polling request to the control channel in order to process RPC requests (JSON formatted):
+                    // - the first invocation has &reset=1 and no payload
+                    // - subsequent invocation do not have &reset=1 and do have a payload (the response to the previously received RPC request)
+                    // Read the response
+                        // This will block till an actual response from the server is made
+                        // TODO add timeout after few minutes to avoid half-open connection issues
+                    // This is most likely a timeout
+                    // Parse the response (JSON) into a dictionary
+                    // Process the received RPC request and return the result via the next HTTP long polling request
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\appflinger-mediaroom\AppFlinger.net\Default.aspx.cs
 
-                                    while ((line = reader.ReadLine()) != null)
-                                    {
+            // Mandatory query string arguments
+            // Optional query string arguments
+            // Set the image URL to be the AppFlinger session snapshot URL (JPEG)
+            // Set the image refresh frequency
+            // Start the control channel
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\appflinger-mediaroom\AppFlinger.net\GetVideo.aspx.cs
 
-                                        tw.WriteLine(line);
-                                        totalCommentLines++;
-                                        totalCommentsLength += line.Length;
-                                        if (line.Contains("*/")) { break; }
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\appflinger-mediaroom\AppFlinger.net\GetVideoState.aspx.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\appflinger-mediaroom\AppFlinger.net\GetVideoURL.aspx.cs
+
+            // For now we are proxying the video and not providing the original URL because for some unknown reason mediaroom does not play the YouTube video URLs but
+            // plays those videos fine when proxied
+            // TODO Do not proxy once mediaroom can handle those URLs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\appflinger-mediaroom\AppFlinger.net\Global.asax.cs
+
+                // TODO should be made thread safe
+                // TODO should be made thread safe
+                    // TODO implement
+                    // TODO implement
+                // TODO implement
+                // TODO implement
+            // Reset the state variables
+            // Code that runs on application startup
+            //  Code that runs on application shutdown
+            // Code that runs when an unhandled error occurs
+            // Code that runs when a new session is started
+            // Code that runs when a session ends. 
+            // Note: The Session_End event is raised only when the sessionstate mode
+            // is set to InProc in the Web.config file. If session mode is set to StateServer 
+            // or SQLServer, the event is not raised.
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\appflinger-mediaroom\AppFlinger.net\SetVideoInfo.aspx.cs
+
+        // Parse string of the form "x days y hours z minutes"
+                // We exepct a number at even positions
+                // We expect a tag at odd positions and we should have seen a number by now
+                // Look for a tag
+                // Add the num based on its units
+                // TODO unfortunately mediaroom does not return seconds so the duration we have is in resolution of minutes
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\appflinger-mediaroom\AppFlinger.net\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\ChatBot-Mark-II\ChatBotMarkII\Program.cs
+
+		// Class variables declared globally to store the instances among all the methods
+		// These boolean variables store the status of the friend collection
+		// .. and this is where we store the friends.
+		//  The server URI and port needed to connect to Facebook's Chat XMPP server
+		//private const string SERVER = "chat.facebook.com";
+		// .. in case the firewall blocks ports.
+		// I'd probably try to make it connect to the fallback port if the standard port
+		// if the connections fails, but I have to figure out how how I should implement
+		// this properly.
+			// We instantiate the class and create a connection with the SERVER details ..
+				// .. and the login details. You can usually find the username (if you normally
+				// use an email to login by going to your profile and checking the URL.
+				// It would looks something similar to facebook.com/your-username.
+				// If not, then go to your profile details and look for the email given
+				// to you by facebook, that could work too.
+				// This is useful so I don't have to manually set the presence as online
+				// once you login. Hopefully this is what it does. I'm not entirely sure
+				// what it does yet because I am yet to read the documentation.
+			// We instantiate the chatbot here. You can find the API and any samples on
+			// https://code.google.com/p/chatter-bot-api/
+			//ChatterBot chatbot = chatbotFactory.Create(ChatterBotType.PANDORABOTS, "94ade513be34ddcf");
+			// Note: All the chats here use the same instance, so it might reply to someone else in the 
+			//		 context of the subject you were talking about. I'll try to fix this soon.
+			// We subscribe to the events and run the relevant methods
+			// Here we go! :3 Catch us if anything goes wrong. :c
+				// This can be helpful
+				// .. and we finally open the connection.
+			// Murphey's Law: What can go wrong, Will go wrong.
+			// Starting collecting the roster and put the program in an infinite sleep loop,
+			// (Most of the functions are asynchronous) so it won't close.
+		// This happens once we login. This gets the jid and name of the friends in the roster and 
+		// stores them in the 'Friends' dictionary.
+		// This runs once we log in to the system.
+			// Are we really logged in?
+				// Yes! c:
+				// No :c
+		// Once we fill the roster with al our friends, we run this method and show the message
+		// This runs when the connection closes (hopefully!)
+		// If we were to have any kind of errors, this method would run and log the error to the console.
+		// Yaay! We got a message! :D This is where the fun happens.
+			// Transfer the sender and the message into separate variables
+			// .. and also search for the real name of the person by cross referencing
+			// the dictionary we made earlier.
+			// If we wanted to the opposite of this (get the JID from a name), it would be:
+			// string currentUserJid = Friends.First(x => x.Value == "Ishan Marikar").Key;
+			// If the user is still typing ..
+				// Just print this.. 
+				// .. and get out.
+			// If the message is NOT empty, then we run this:
+				// Print the message we've recieved along with the user who sent it.
+				// Pass the message to the chatbot and get the reply..
+				// .. and get send the message back to the user who sent it.
+		// There's nothing much here, I've just offloaded the work of constantly changing 
+		// the foreground colour for a single message, to a method.
+		// The same as above, but for exceptions.
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\ChatBot-Mark-II\ChatBotMarkII\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\DotNetResourceSerializer\src\JsonHelper.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\DotNetResourceSerializer\src\MainForm.cs
+
+                    ignoreCmt || string.IsNullOrWhiteSpace(it.Comment) ? string.Empty : "    //" + it.Comment + Environment.NewLine,
+                    Text = it.Substring(path.Length + 1),// Path.GetFileName(it),
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\DotNetResourceSerializer\src\MainForm.Designer.cs
+
+            // 
+            // tbResxFolder
+            // 
+            // 
+            // btnSelectResxFolder
+            // 
+            // 
+            // btnConvertResxToJson
+            // 
+            // 
+            // tabControl1
+            // 
+            // 
+            // tpResxToJson
+            // 
+            // 
+            // ckRecursive
+            // 
+            // 
+            // ckCompactJsonFormat
+            // 
+            // 
+            // ckJavaScriptOutput
+            // 
+            // 
+            // ckInoreComments
+            // 
+            // 
+            // panel1
+            // 
+            // 
+            // tbResxToJsonPreview
+            // 
+            // 
+            // lbResxToJsonFiles
+            // 
+            // 
+            // tpJsonToResx
+            // 
+            // 
+            // textBox1
+            // 
+            // 
+            // tbTip
+            // 
+            // 
+            // MainForm
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\DotNetResourceSerializer\src\Program.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\DotNetResourceSerializer\src\Resx.cs
+
+        //All "comment" will be lost.
+        //public static Resx Load(string fileName)
+        //{
+        //    using (var reader = new ResourceReader(fileName))
+        //    {
+        //        var items = new List<ResxItem>(100);
+        //        var enu = reader.GetEnumerator();
+        //        while (enu.MoveNext())
+        //        {
+        //            var key = enu.Entry.Key as string;
+        //            if (null == key)
+        //            {
+        //                continue;
+        //            }
+        //            var value = enu.Entry.Value as string;
+        //            items.Add(new ResxItem
+        //            {
+        //                Name = key,
+        //                Value = value
+        //            });
+        //        }
+        //        return new Resx(items);
+        //    }
+        //}
+        //Load resource file as plain xml, "comment" remains.
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\DotNetResourceSerializer\src\ResxItem.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\DotNetResourceSerializer\src\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Domain\DTO\Order.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Domain\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Domain\Repositories\OrderRepository.cs
+
+            // read data from data source
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Domain\Services\DependencyInjectionService.cs
+
+            // dto
+            // repositories
+            // services
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Domain\Services\OrderService.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\EventStore\Program.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\EventStore\Properties\AssemblyInfo.cs
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Specs\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Specs\Services\OrderServiceSpecs.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Types\DTO\IOrder.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Types\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Types\Repositories\ICrudRepository.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\EventSourcing\Types\Services\IOrderService.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\Form1.cs
+
+        // Thread-handler
+        // Websocket
+            ws = new WebSocket("ws://st-livestream.herokuapp.com/");
+        // Values
+        // Foobar lookup
+                // get the title when we have a process handle
+                // find the process handle of foobar2k
+        // Form events
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\Form1.Designer.cs
+
+            // 
+            // meta_artist_input
+            // 
+            // 
+            // meta_artist_label
+            // 
+            // 
+            // meta_track_label
+            // 
+            // 
+            // meta_track_input
+            // 
+            // 
+            // meta_album_label
+            // 
+            // 
+            // meta_album_input
+            // 
+            // 
+            // meta_album_artwork_label
+            // 
+            // 
+            // meta_album_artwork_input
+            // 
+            // 
+            // updateValues_button
+            // 
+            // 
+            // server_forceHide
+            // 
+            // 
+            // forceRefresh_button
+            // 
+            // 
+            // eventUpdate_label
+            // 
+            // 
+            // foobar_button
+            // 
+            // 
+            // foobar_checkbox
+            // 
+            // 
+            // Form1
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\MusicValues.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\Program.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\UnsafeNativeMethods.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\WebsocketCommand.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\WebsocketResponse.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\WebsocketValues.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\Properties\Resources.Designer.cs
+
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\foobar_readout\0_vs\foobar_readout\Properties\Settings.Designer.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataSourceDescriptorAttribute.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\Program.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataModel\DataField.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataModel\DataItem.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataModel\DataSource.cs
+
+            //source.LoadBounds(node); can't run this now, cos it has no ProjectControl to apply this to
+            // i guess the available data types would change if the properties change.
+            // I don't see how we'd keep data connections hooked up if the data types are completely replaced.
+            // will hold off for now.
+            //DataTypes = null;
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataModel\DataType.cs
+
+            Fields = null; // let these be reloaded
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataModel\FieldType.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataModel\Mapping.cs
+
+            // also save the contents of this mapping
+            //m.LoadBounds(node); can't run this now, cos it has no ProjectControl to apply this to
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataModel\Project.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataModel\ProjectElement.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\DataSources\DataSourceCSV.cs
+
+                        // Handle bad implementations returning 0 or less
+                // Handle cases where the delimiter is a whitespace (e.g. tab)
+                    // See char.IsLatin1(char c) in Reflector
+                // Get number of record to read
+                // Check if already at the end of the buffer
+                // Treat \r as new line only if it's not the delimiter
+                    // Skip following \n (if there is one)
+                    // Directly return field if cached
+                    // Handle case where stated start of field is past buffer
+                    // This can occur because _nextFieldStart is simply 1 + last char position of previous field
+                        // Possible EOF will be handled later (see Handle_EOF1)
+                        // Handle_EOF1: Handle EOF here
+                        // If current field is the requested field, then the value of the field is "" as in "f1,f2,f3,(\s*)"
+                        // otherwise, the CSV is malformed
+                        // Trim spaces at start
+                            // Non-quoted field
+                                        // Do the trimming
+                                    // If pos <= 0, that means the trimming went past buffer start,
+                                    // and the concatenated value needs to be trimmed too.
+                                        // Do the trimming
+                                // Reaching a new line is ok as long as the parser is initializing or it is the last field
+                            // Quoted field
+                            // Skip quote
+                                    // IF current char is escape AND (escape and quote are different OR next char is a quote)
+                                // Append remaining parsed buffer content
+                                // Skip quote
+                                // Skip whitespaces between the quote and the delimiter/eol
+                                // Skip delimiter
+                                // Skip new line delimiter if initializing or last field
+                                // (if the next field is missing, it will be caught when parsed)
+                                // If no delimiter is present after the quoted field and it is not the last field, then it is a parsing error
+                        // If initializing, return null to signify the last field has been reached
+                // Getting here is bad ...
+                    // will be replaced if and when headers are read
+                    // Keep growing _fields array until the last field has been found
+                    // and then resize it to its final correct size
+                    // _fieldCount contains the last field index, but it must contains the field count,
+                    // so increment by 1
+                    // If headers are present, call ReadNextRecord again
+                        // Don't count first record as it was the headers
+                        // Proceed to first record
+                            // Calling again ReadNextRecord() seems to be simpler, 
+                            // but in fact would probably cause many subtle bugs because the derived does not expect a recursive behavior
+                            // so simply do what is needed here and no more.
+                        // If not already at end of record, move there
+                                // a dirty trick to handle the case where extra fields are present
+                    // Check to see if the first record is in cache.
+                    // This can happen when initializing a reader with no headers
+                    // because one record must be read to get the field count automatically
+                // ((pos = 0) == 0) is a little trick to reset position inline
+                                // already at EOL when fields are missing, so don't skip to next line in that case
+                        // already at EOL when fields are missing, so don't skip to next line in that case
+                // Array.Copy(...) will do the remaining argument checks
+                    // For SELECT statements, -1 must be returned.
+                // null marks columns that will change for each row
+					true,					// 00- AllowDBNull
+					null,					// 01- BaseColumnName
+					string.Empty,			// 02- BaseSchemaName
+					string.Empty,			// 03- BaseTableName
+					null,					// 04- ColumnName
+					null,					// 05- ColumnOrdinal
+					int.MaxValue,			// 06- ColumnSize
+					typeof(string),			// 07- DataType
+					false,					// 08- IsAliased
+					false,					// 09- IsExpression
+					false,					// 10- IsKey
+					false,					// 11- IsLong
+					false,					// 12- IsUnique
+					DBNull.Value,			// 13- NumericPrecision
+					DBNull.Value,			// 14- NumericScale
+					(int) DbType.String,	// 15- ProviderType
+					string.Empty,			// 16- BaseCatalogName
+					string.Empty,			// 17- BaseServerName
+					false,					// 18- IsAutoIncrement
+					false,					// 19- IsHidden
+					true,					// 20- IsReadOnly
+					false					// 21- IsRowVersion
+                    schemaRow[1] = columnNames[i]; // Base column name
+                    schemaRow[4] = columnNames[i]; // Column name
+                    schemaRow[5] = i; // Column ordinal
+                // Refer to http://www.bluebytesoftware.com/blog/PermaLink,guid,88e62cdf-5919-4ac7-bc33-20c06ae539ae.aspx
+                // Refer to http://www.gotdotnet.com/team/libraries/whitepapers/resourcemanagement/resourcemanagement.aspx
+                // No exception should ever be thrown except in critical scenarios.
+                // Unhandled exceptions during finalization will tear down the process.
+                        // Dispose-time code should call Dispose() on all owned objects that implement the IDisposable interface. 
+                        // "owned" means objects whose lifetime is solely controlled by the container. 
+                        // In cases where ownership is not as straightforward, techniques such as HandleCollector can be used.  
+                        // Large managed object fields should be nulled out.
+                        // Dispose-time code should also set references of all owned objects to null, after disposing them. This will allow the referenced objects to be garbage collected even if not all references to the "parent" are released. It may be a significant memory consumption win if the referenced objects are large, such as big arrays, collections, etc. 
+                            // Acquire a lock on the object while disposing.
+                        // Ensure that the flag is set
+                        // Catch any issues about firing an event on an already disposed object.
+                            // No more records to read, so set array size to only what is needed
+                    // read to the last record before the one we want
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\EditProperties\BoolEditProperty.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\EditProperties\CharEditProperty.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\EditProperties\EditPropertyBase.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\EditProperties\FileEditProperty.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\EditProperties\StringEditProperty.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\EditProperties\UIEditablePropertyAttribute.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\Properties\Resources.Designer.cs
+
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\Properties\Settings.Designer.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\DataSourceControl.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\DataSourceControl.Designer.cs
+
+            // 
+            // lblName
+            // 
+            // 
+            // treeView
+            // 
+            // 
+            // DataSourceControl
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\DataSourceEditPopup.cs
+
+                // only the checked types should be enabled
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\DataSourceEditPopup.Designer.cs
+
+            // 
+            // btnCancel
+            // 
+            // 
+            // btnOK
+            // 
+            // 
+            // flowLayoutPanel1
+            // 
+            // 
+            // DataSourceEditPopup
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\DataTypeEditPopup.cs
+
+                if (change.NewDisplayName != null) // if NewDisplayName = blank, use Name instead.
+                    // ignore cells from column 2 (unless we only have one cell), cos the dropdowns don't highlight to show the selection
+                    continue; // can't move up the first row, or the very last row which is for entering new rows, and isn't a proper row in itself
+                    continue; // don't move through another selected row
+                    continue; // can't move down the last actual row, or the "new" row displayed below that, which isn't a proper row in itself
+                    continue; // don't move through another selected row
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\DataTypeEditPopup.Designer.cs
+
+            // 
+            // fieldGrid
+            // 
+            // 
+            // colFieldName
+            // 
+            // 
+            // ColDisplayName
+            // 
+            // 
+            // colFieldType
+            // 
+            // 
+            // btnOK
+            // 
+            // 
+            // btnCancel
+            // 
+            // 
+            // lnkMoveUp
+            // 
+            // 
+            // lnkMoveDown
+            // 
+            // 
+            // DataTypeEditPopup
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\MainForm.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\MainForm.Designer.cs
+
+            // 
+            // menuStrip1
+            // 
+            // 
+            // fileMenuItem
+            // 
+            // 
+            // newProjectToolStripMenuItem
+            // 
+            // 
+            // openProjectToolStripMenuItem
+            // 
+            // 
+            // saveProjectToolStripMenuItem
+            // 
+            // 
+            // saveProjectasToolStripMenuItem
+            // 
+            // 
+            // projectToolStrip
+            // 
+            // 
+            // btnAddInput
+            // 
+            // 
+            // btnAddOutput
+            // 
+            // 
+            // btnAddMapping
+            // 
+            // 
+            // btnRunMappings
+            // 
+            // 
+            // projectPanel
+            // 
+            // 
+            // MainForm
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\MappingConnectionPopup.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\MappingConnectionPopup.Designer.cs
+
+            // 
+            // chkListDataTypes
+            // 
+            // 
+            // lblDataTypes
+            // 
+            // 
+            // btnOK
+            // 
+            // 
+            // btnCancel
+            // 
+            // 
+            // MappingConnectionPopup
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\MappingConnector.cs
+
+                    maxAngle = (float)Math.PI / 3; break; // 60 degree spread
+                    maxAngle = (float)Math.PI / 2; break; // 90 degree spread
+                    maxAngle = (float)Math.PI * 2 / 3; break; // 120 degree spread
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\MappingControl.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\MappingControl.Designer.cs
+
+            // 
+            // lblName
+            // 
+            // 
+            // lnkAddOutput
+            // 
+            // 
+            // lnkAddInput
+            // 
+            // 
+            // MappingControl
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\MappingCreatePopup.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\MappingCreatePopup.Designer.cs
+
+            // 
+            // btnOK
+            // 
+            // 
+            // btnCancel
+            // 
+            // 
+            // txtName
+            // 
+            // 
+            // label1
+            // 
+            // 
+            // label2
+            // 
+            // 
+            // label3
+            // 
+            // 
+            // chkListInput
+            // 
+            // 
+            // chkListOutput
+            // 
+            // 
+            // MappingCreatePopup
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\ProjectPanel.cs
+
+            if (!source.InitializeNew()) // but these might not be NEW sources. We might be loading a file!
+            if (!mapping.InitializeNew()) // but these might not be NEW mappings. We might be loading a file!
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\MapFarce\MapFarce\UI\ProjectPanel.Designer.cs
+
+            // 
+            // ProjectPanel
+            // 
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\NfcAnalyzerWP8\NFC Analyzer\App.xaml.cs
+
+            // Global handler for uncaught exceptions.
+            // Standard XAML initialization
+            // Phone-specific initialization
+            // Language display initialization
+            // Show graphics profiling information while debugging.
+                // Display the current frame rate counters.
+                // Prevent the screen from turning off while under the debugger by disabling
+                // the application's idle detection.
+        // Code to execute when the application is launching (eg, from Start)
+        // This code will not execute when the application is reactivated
+            //initProximity();
+        // Code to execute when the application is activated (brought to foreground)
+        // This code will not execute when the application is first launched
+        // Code to execute when the application is deactivated (sent to background)
+        // This code will not execute when the application is closing
+        // Code to execute when the application is closing (eg, user hit Back)
+        // This code will not execute when the application is deactivated
+        // Code to execute if a navigation fails
+                // A navigation has failed; break into the debugger
+        // Code to execute on Unhandled Exceptions
+                // An unhandled exception has occurred; break into the debugger
+            // Make sure NFC is supported
+        // Avoid double-initialization
+        // Do not add any additional code to this method
+            // Create the frame but don't set it as RootVisual yet; this allows the splash
+            // screen to remain active until the application is ready to render.
+            // Handle navigation failures
+            // Handle reset requests for clearing the backstack
+            // Ensure we don't initialize again
+        // Do not add any additional code to this method
+            // Set the root visual to allow the application to render
+            // Remove this handler since it is no longer needed
+            // If the app has received a 'reset' navigation, then we need to check
+            // on the next navigation to see if the page stack should be reset
+            // Unregister the event so it doesn't get called again
+            // Only clear the stack for 'new' (forward) and 'refresh' navigations
+            // For UI consistency, clear the entire page stack
+                ; // do nothing
+        // Initialize the app's font and flow direction as defined in its localized resource strings.
+        // To ensure that the font of your application is aligned with its supported languages and that the
+        // FlowDirection for each of those languages follows its traditional direction, ResourceLanguage
+        // and ResourceFlowDirection should be initialized in each resx file to match these values with that
+        // file's culture. For example:
+        // AppResources.es-ES.resx
+        //    ResourceLanguage's value should be "es-ES"
+        //    ResourceFlowDirection's value should be "LeftToRight"
+        // AppResources.ar-SA.resx
+        //     ResourceLanguage's value should be "ar-SA"
+        //     ResourceFlowDirection's value should be "RightToLeft"
+        // For more info on localizing Windows Phone apps see http://go.microsoft.com/fwlink/?LinkId=262072.
+                // Set the font to match the display language defined by the
+                // ResourceLanguage resource string for each supported language.
+                // Set the FlowDirection of all elements under the root frame based
+                // on the ResourceFlowDirection resource string for each
+                // supported language.
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\NfcAnalyzerWP8\NFC Analyzer\Class1.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\NfcAnalyzerWP8\NFC Analyzer\LocalizedStrings.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\NfcAnalyzerWP8\NFC Analyzer\MainPage.xaml.cs
+
+        //private Model Game;
+        // Constructor
+            // Initialize the Proximity Device.
+            // Make sure NFC is supported
+            //if (device.DeviceId.Length > 0)
+            //{
+            //    devArrStr += " " + AppResources.id + " = " + device.DeviceId;
+            //}
+            //showNoTextMessage = true;
+            //if (device.DeviceId.Length > 0)
+            //{
+            //    devDepStr += " ID = " + device.DeviceId;
+            //}
+                if (typeNameFormat(recordFlags) == 0x01) { // NFC Forum Well Known Type
+                    if (typeString == "T") { // Text
+                    } else if (typeString == "Sp") { // Smart Poster
+                    } else if (typeString == "U") { // URI
+                                uriPrefixString = "ftp://anonymous:anonymous@";
+                                uriPrefixString = "ftp://ftp.";
+                                uriPrefixString = "ftps://";
+                                uriPrefixString = "sftp://";
+                                uriPrefixString = "smb://";
+                                uriPrefixString = "nfs://";
+                                uriPrefixString = "ftp://";
+                                uriPrefixString = "dav://";
+                                uriPrefixString = "telnet://";
+                                uriPrefixString = "rtsp://";
+                                uriPrefixString = "btspp://";
+                                uriPrefixString = "btl2cap://";
+                                uriPrefixString = "btgoep://";
+                                uriPrefixString = "tcpobex://";
+                                uriPrefixString = "irdaobex://";
+                                uriPrefixString = "file://";
+                    } else if (typeString == "Gc") { // Generic Control
+                    } else if (typeString == "Hr") { // Handover Request
+                    } else if (typeString == "Hs") { // Handover Select
+                    } else if (typeString == "Hc") { // Handover Carrier
+                    } else if (typeString == "Sg") { // Signature
+                } else if (typeNameFormat(recordFlags) == 0x02) { // Media Type 
+                { // Absolute URI Type
+                { // NFC Forum External Type
+                } else { // Currently unsupported Type
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\NfcAnalyzerWP8\NFC Analyzer\Vcard.cs
+
+            textStr = textStr.Replace(escapeComma, ","); // Ref. RFC6350 Section 3.4
+            textStr = textStr.Replace(escapeSemicolon, ";"); // Ref. RFC6350 Section 3.4
+            textStr = textStr.Replace(escapeBackslash, backSlash); // Ref. RFC6350 Section 3.4
+            textString.Replace("\r\n ", ""); // Ref. RFC6350 Section 3.2
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\NfcAnalyzerWP8\NFC Analyzer\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\NfcAnalyzerWP8\NFC Analyzer\Resources\AppResources.Designer.cs
+
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\MD5ConsoleTest\Program.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\MD5ConsoleTest\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\MD5ConsoleTest\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\MD5ConsoleTest\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\MD5ConsoleTest\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\PortableMD5\Data.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\PortableMD5\Digest.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\PortableMD5\MD5.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\PortableMD5\MD5Extensions.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\PortableMD5\PortableMD5\PortableMD5\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\SalesTaxes_CSharp\Code\BasketItem.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\SalesTaxes_CSharp\Code\Category.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\SalesTaxes_CSharp\Code\ReceiptDetails.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\SalesTaxes_CSharp\Code\ReceiptItem.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\SalesTaxes_CSharp\Code\SalesTaxCalculator.cs
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\SalesTaxes_CSharp\Code\SalesTaxTypes.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\SalesTaxes_CSharp\Code\Properties\AssemblyInfo.cs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\SalesTaxes_CSharp\Tests\SalesTaxCalculatorTests.cs
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp\SalesTaxes_CSharp\Tests\Properties\AssemblyInfo.cs
 
 TOTAL LINES SCANNED
-207
+14055
 TOTAL COMMENTS LINES
-64
+688
 AVERAGE COMMENTS CHARACTER LENGHT
-45
+40
 TOTAL TODO COMMENTS
-0
+9

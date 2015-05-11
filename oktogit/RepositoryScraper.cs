@@ -2,24 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace oktogit
 {
     public class RepositoryScraper
     {
-        //TODO: Not done implementing this class yet only tested it works.
-        // Get all files in folder and subfolders that contain .cs as filending
-        public string[] filePaths = Directory.GetFiles(@"C:\Users\dav\Documents\GitHub\oktogit\oktogit\", "*.cs",
-                                         SearchOption.AllDirectories);
+        // Add Path to folder here, and set extension to *.cs or *.js
+        public string[] _filePaths;
 
-
-        private String _path;
-        private String _fileEnd;
-        public RepositoryScraper(string localFilepath, string fileEnd)
+        public RepositoryScraper(string [] filePaths)
         {
-            _path = localFilepath;
-            _fileEnd = fileEnd;
+            _filePaths = filePaths;
         }
 
         /// <summary>
@@ -27,6 +22,7 @@ namespace oktogit
         /// </summary>
         public void AnalyzeCSFiles()
         {
+
             // Total lines scanned
             int totalLines = 0;
             // Total amount of lines with comments // or /**/
@@ -35,14 +31,19 @@ namespace oktogit
             int totalCommentsLength = 0;
             // Total mount of todo comments
             int todoComment = 0;
+
             using (TextWriter tw = new StreamWriter("CommentSummary.txt"))
             {
                 // loop through all files
-                foreach (var item in filePaths)
+                foreach (var item in _filePaths)
                 {
-                    // exclude all files that start with AssemblyInfo
-                    if (!item.Contains("AssemblyInfo"))
+                    
+                    // exclude all files that start with AssemblyInfo and Jasmine
+                    if (!(item.Contains("AssemblyInfo.cs") || item.Contains("Jasmine")))
                     {
+                        tw.WriteLine("--------------------------------------------------------------------");
+                        tw.WriteLine(String.Format("Filepath Analyzed was {0}", item));
+                        tw.WriteLine();
                         string line;
                         using (StreamReader reader = new StreamReader(item))
                         {
@@ -50,37 +51,31 @@ namespace oktogit
                             {
                                 // Add one line for eatch line in file.
                                 totalLines++;
-
-                                if (line.Contains("//"))
+                                // match for line comment and not start with documentation block. (don't want documentation blocks)
+                                if (line.Contains("//")  && !line.Trim().StartsWith("///"))
                                 {
-                                    tw.WriteLine(line);
-                                    totalCommentLines++;
-                                    totalCommentsLength += line.Length;
+                                    var lines = line.Split(new string[] { "//" },StringSplitOptions.RemoveEmptyEntries);
 
-                                    if (line.Contains("TODO"))
+                                    // Check it is not an url will remove most invalid comments.
+                                    if (lines.Length > 1 && !(lines[0].ToLower().Contains("http:") || lines[0].ToLower().Contains("https:")))
                                     {
-                                        todoComment++;
-                                    }
-
-                                }
-
-                                if (line.Contains("/*"))
-                                {
-                                    tw.WriteLine(line);
-                                    totalCommentLines++;
-                                    totalCommentsLength += line.Length;
-
-                                    while ((line = reader.ReadLine()) != null)
-                                    {
-
                                         tw.WriteLine(line);
                                         totalCommentLines++;
-                                        totalCommentsLength += line.Length;
-                                        if (line.Contains("*/")) { break; }
-                                    }
-                                }
+                                        // Have to remove emty space at start and end of line.
+                                        totalCommentsLength += line.Trim().Length;
+
+                                        if (line.Contains("TODO") || line.Contains("TODO:"))
+                                        {
+                                            todoComment++;
+                                        }
+                                    }                                  
+                                }                    
                             }
                         }
+                    }
+                    else
+                    {
+                        tw.WriteLine(String.Format("Filepath IGNORED was {0}", item));
                     }
                 }
                 tw.WriteLine();
