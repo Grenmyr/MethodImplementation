@@ -23,30 +23,34 @@ namespace oktogit.Tests
         [TestMethod]
         public void ScrapeRepositoriesCSharp()
         {
+            var filename = "CSharpResult.txt";
             var go = new RepositoryScraper(Directory.GetFiles(@"C:\Users\dav\Documents\GitHub\Teoretiskt arbete\CSharp", "*.cs",
-                                         SearchOption.AllDirectories));
+                                         SearchOption.AllDirectories),filename);
             go.AnalyzeCSFiles();
-            Process.Start("C:/Users/dav/Documents/GitHub/MethodImplementation/oktogit.Tests/bin/Debug/CommentSummary.txt");
+
+            Process.Start(String.Format("C:/Users/dav/Documents/GitHub/MethodImplementation/oktogit.Tests/bin/Debug/{0}", filename));
 
         }
         [TestMethod]
         public void ScrapeRepositoriesJavascript()
         {
+            var filename = "JavascriptResult.txt";
             var go = new RepositoryScraper(Directory.GetFiles(@"C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript", "*.js",
-                                         SearchOption.AllDirectories));
+                                         SearchOption.AllDirectories), filename);
             go.AnalyzeCSFiles();
-            Process.Start("C:/Users/dav/Documents/GitHub/MethodImplementation/oktogit.Tests/bin/Debug/CommentSummary.txt");
+            Process.Start(String.Format("C:/Users/dav/Documents/GitHub/MethodImplementation/oktogit.Tests/bin/Debug/{0}",filename));
 
         }
 
         [TestMethod]
         public void checkScrape()
         {
+            var filename = "TestResult.txt";
             var go = new RepositoryScraper(Directory.GetFiles(@"C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit.Tests\TestData", "*.cs",
-                                         SearchOption.AllDirectories));
+                                         SearchOption.AllDirectories), filename);
             go.AnalyzeCSFiles();
 
-            Process.Start("C:/Users/dav/Documents/GitHub/MethodImplementation/oktogit.Tests/bin/Debug/CommentSummary.txt");
+            Process.Start(String.Format("C:/Users/dav/Documents/GitHub/MethodImplementation/oktogit.Tests/bin/Debug/{0}", filename));
         }
     }
 }

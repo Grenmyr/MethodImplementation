@@ -1,0 +1,19 @@
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\MethodImplementation\oktogit.Tests\TestData\TestClass.cs
+
+    {//This should be found.
+        string shouldBeFound = "dsa";// This should be found.
+        // This should be found.
+        //TODO: This should be found.
+        //TODO This should be found.
+        //todo This should be found.
+        // IT should be 7 found lines total (including this one) where 3 are TODO comments
+
+TOTAL LINES SCANNED
+37
+TOTAL COMMENTS LINES
+7
+AVERAGE COMMENTS CHARACTER LENGHT
+38
+TOTAL TODO COMMENTS
+3

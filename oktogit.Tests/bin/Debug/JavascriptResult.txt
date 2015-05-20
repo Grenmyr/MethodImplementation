@@ -1,0 +1,338 @@
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\appflinger-js\src\js\appflinger.js
+
+							// display status message
+    			// post result and wait for another request
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\bloq\bloq.js
+
+                    //Assume root
+    //#region "Binder" 
+                //Process templates
+                }//json
+    //#endregion
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\bloq\sample\templates\greetings.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\GraphWriter\script.js
+
+	// find selected node
+	// remove element from DOM and re-add it, because SVG z-index is based on element order
+		return; // no change
+			.attr('transform', 'translate(' + node.x + ' ' + node.y + ')') // set x & y
+	group.children('rect') // recalculate size of rectangle?
+	// set x & y of each end
+	// delete all incoming and outgoing links to this node
+	// remove <br/> tags immediately before or after divs
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\holiday-auto-game\run.js
+
+var width = 3; //Width of map
+var height = 3; //Height of map
+var map; //Directional map used to map out passages in maze
+var world; //World which uses map, with false representing wall segments, true representing available space
+var playerx = width * 2 - 1; //Player x and y coordinates mapped to world, not map
+var playerdir = 4; //Player direction
+var topleftx = 0; //Reference to the x and y coordinates of the top-left of the display on the map (not currently used for anything)
+	switch (playerdir) { //Make a move based on the right-hand maze traversal rule
+	var buf = new Buffer(160); //Buffer for data pertaining to Holiday lights, 160 bytes long
+	for (var i = 0; i < 10; i++) { //First 10 bytes are ignored, useless
+	var x = 10; //Skipping first ten bytes of packet/buffer
+	for (var i = tlx; i < tlx + 7; i++) { //Set the lights white if wall, blank if passageway for the visible area
+	buf.write(0, x++); //Fill the last light with emptiness
+	var s = dgram.createSocket('udp4'); //Create UDP socket to send data over
+	s.send(buf, 0, buf.length, 9988, process.argv[2], function(err, bytes) { //Send data about lights over UDP socket (IP address of Holiday passed as argument...
+	  s.close(); //...and then close
+setInterval(function() { //Iterate through this every so many milliseconds
+	if ((playerx == width * 2 - 1) && (playery == height * 2 - 1)) { //If player in winning spot (bottom-right corner)...
+		playerx = 1; //Reset player coordinates
+		topleftx = 0; //Reset screen coordinates (not currently used)
+		map = new Array(width); //Reset map
+		world = new Array(width * 2 + 1); //Reset world
+		carve_passages(0, 0, map); //Create new maze
+		set_up_world(map, world); //Transcribe maze to world representation
+		var dir = []; //Collect available player directions
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\javascript-date-format\src\Date.prototype.format.js
+
+        var fullYear = dateObj.getFullYear(), //1700 - 9999
+            month = dateObj.getMonth() + 1, //1 - 12
+            weekDay = dateObj.getDay(), //0 - 6
+            dayOfMonth = dateObj.getDate(), //1 - 31
+            hour = dateObj.getHours(), //0 - 23
+            hour12 = hour % 12 || 12, //1 - 12
+            minute = dateObj.getMinutes(), //0 - 59
+            seconds = dateObj.getSeconds(), //0 - 59
+            ms = dateObj.getMilliseconds(), //0 - 999
+            tz = -dateObj.getTimezoneOffset(), //total minutes from GMT
+            timeZoneSign = tz > 0 ? "+" : "-", //timezone symbol
+            tzh = Math.floor(Math.abs(tz) / 60), //time zone hours
+            timeZoneHour = (tzh > 9 ? "" : "0") + tzh, //string of time zone hours with leading zero
+            tzm = Math.abs(tz) % 60, //time zone minutes
+            timeZoneMinute = (tzm > 9 ? "" : "0") + tzm, //string of time zone minutes with leading zero
+        //year:
+        //  yyyy or YYYY
+        //  yy or YY
+        //month:
+        //  mmmm or MMMM
+        //  mmm or MMM
+        //  MM
+        //  M
+        //day:
+        //  ddddd or DDDDD
+        //  dddd or DDDD
+        //  ddd or DDD
+        //  dd or DD
+        //  d or D
+        //hour:
+        //  HH
+        //  H
+        //  hh
+        //  h
+        //minute:
+        //  mm
+        //  m
+        //million second
+        //  sss or SSS
+        //second
+        //  ss or SS
+        //  s or S
+        //am/pm
+        //  A
+        //  a
+        //time zone
+        //  Z: -0800 (RFC 822 time zone)
+        //  z: GMT-08:00
+        //escape char
+            //Leave single quoted texts as is(with quote trimmed).
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\javascript-date-format\src\Date.prototype.format.min.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\javascript-date-format\test\Date.prototype.format.test.js
+
+var NOW = new Date(2012, 6, 31, 4, 49, 10, 112);        //2012-07-31 04:49:10.112
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\Mithril\gulpfile.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\Mithril\app\scripts\app.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\NfcAnalyzer\NFC Analyzer\js\default.js
+
+                // TODO: This application has been newly launched. Initialize
+                // your application here.
+                // TODO: This application has been reactivated from suspension.
+                // Restore application state here.
+        // TODO: This application is about to be suspended. Save any state
+        // that needs to persist across suspensions here. You might use the
+        // WinJS.Application.sessionState object, which is automatically
+        // saved and restored across suspension. If you need to complete an
+        // asynchronous operation before your application is suspended, call
+        // args.setPromise().
+        // TODO: This application is about to be suspended. Save any state
+        // that needs to persist across suspensions here. You might use the
+        // WinJS.Application.sessionState object, which is automatically
+        // saved and restored across suspension. If you need to complete an
+        // asynchronous operation before your application is suspended, call
+        // args.setPromise().
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\NfcAnalyzer\NFC Analyzer\js\proximity.js
+
+        var messageText = textString.replace("\r\n ", ""); // unfold text lines
+            if (typeNameFormat(recordFlags) == 0x01) { // NFC Forum Well Known Type
+                if (typeString == "T") { // Text
+                } else if (typeString == "Sp") { // Smart Poster
+                } else if (typeString == "U") { // URI
+                            uriPrefixString = "ftp://anonymous:anonymous@";
+                            uriPrefixString = "ftp://ftp.";
+                            uriPrefixString = "ftps://";
+                            uriPrefixString = "sftp://";
+                            uriPrefixString = "smb://";
+                            uriPrefixString = "nfs://";
+                            uriPrefixString = "ftp://";
+                            uriPrefixString = "dav://";
+                            uriPrefixString = "telnet://";
+                            uriPrefixString = "rtsp://";
+                            uriPrefixString = "btspp://";
+                            uriPrefixString = "btl2cap://";
+                            uriPrefixString = "btgoep://";
+                            uriPrefixString = "tcpobex://";
+                            uriPrefixString = "irdaobex://";
+                            uriPrefixString = "file://";
+                } else if (typeString == "Gc") { // Generic Control
+                } else if (typeString == "Hr") { // Handover Request
+                } else if (typeString == "Hs") { // Handover Select
+                } else if (typeString == "Hc") { // Handover Carrier
+                } else if (typeString == "Sg") { // Signature
+            } else if (typeNameFormat(recordFlags) == 0x02) { // Media Type 
+            } else if (typeNameFormat(recordFlags) == 0x03) { // Absolute URI Type
+            } else if (typeNameFormat(recordFlags) == 0x04) { // NFC Forum External Type
+            } else { // Currently unsupported Type
+        // TODO: Refresh network data
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\NfcAnalyzer\NFC Analyzer\js\vcard.js
+
+        textStr = textStr.replace(/\,/g, ","); // Ref. RFC6350 Section 3.4
+        textStr = textStr.replace(/\\;/g, ';'); // Ref. RFC6350 Section 3.4
+        textStr = textStr.replace(/\\\\/g, String.fromCharCode(0x005C)); // Ref. RFC6350 Section 3.4
+        // Need to add GEO and TZ with this code.
+        // Need to add LABEL property.
+        textString = textString.replace("\r\n ", ""); // Ref. RFC6350 Section 3.2
+                //var mainParam = paramArray[0];
+                    //objDiv.appendChild(document.createElement("br"));
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\PrivateWebChat\app.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\PrivateWebChat\config.js
+
+	// Set .html as the default template extension
+	// Initialize the ejs template engine
+	// Tell express where it can find the templates
+	// Make the files in the public folder available to the world
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\PrivateWebChat\routes.js
+
+		// Render views/home.html
+		// Generate unique id for the room
+		// Redirect to the random room
+		// Render the chant.html view
+	// Initialize a new socket.io application, named 'chat'
+		// When the client emits the 'load' event, reply with the 
+		// number of people in this chat room
+		// When the client emits 'login', save his name and avatar,
+		// and add them to the room
+			// Only two people per room are allowed
+				// Use the socket object to store data. Each client gets
+				// their own unique socket object
+				// Tell the person what he should use for an avatar
+				// Add the client to the room
+					// Send the startChat event to all the people in the
+					// room, along with a list of people that are in it.
+		// Somebody left the chat
+			// Notify the other person in the chat room
+			// that his partner has left
+			// leave the room
+		// Handle the sending of messages
+			// When the server receives a message, it sends it to the other person in the room.
+		ns = io.of(namespace ||"/");    // the default namespace is "/"
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\PrivateWebChat\public\js\chat.js
+
+	// getting the id of the room from the url
+	// connect to the socket
+	// variables which hold the data for each person
+	// cache some jQuery objects
+	// some more jquery objects
+	// these variables hold images
+	// on connection to server get the id of person's room
+	// save the gravatar url
+	// receive the names and avatars of all people in the chat room
+					// call the server-side function 'login' and send user's parameters
+	// Other useful 
+		// Submit the form on enter
+		// Create a new chat message and display it directly
+			// Send the message to the other person in the chat
+		// Empty the textarea
+	// Update the relative time stamps on the chat messages every minute
+	// Function that creates a new chat message
+		// use the 'text' method to escape malicious user input
+			// Set the invite link content
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\PrivateWebChat\public\js\moment.min.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\rbtv_schedule\extensions\chrome\js\ajax.js
+
+	// Define and initialize as false
+	// Mozilla/Safari/Non-IE
+    // IE
+	// Set the variables
+	// If AJAX supported
+		// Open Http Request connection
+		// Set request header (optional if GET method is used)
+		// Assign (or define) response-handler/callback when ReadyState is changed.
+		// Send data
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\rbtv_schedule\extensions\chrome\js\amazon.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\rbtv_schedule\extensions\chrome\js\background.js
+
+	// ajax-request for .ics-file
+			// update the schedule only if the ajax-content is parsable and not empty
+			// offline
+			// ondemand
+			// live
+					url: "*://*.twitch.tv/rocketbeanstv*"
+						// twitch is not open
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\rbtv_schedule\extensions\chrome\js\core.js
+
+	var eventDate = new Date(eventObj.date);	// clone the date, since we modify it to check if it's still "today"
+		// reset
+		// push every event available
+		// set the size of the body for the opening animation
+	// only show the specified amount of shows
+	// update UI with usersettings
+	// bind DOM-events
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\rbtv_schedule\extensions\chrome\js\expand.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\rbtv_schedule\extensions\chrome\js\ga.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\rbtv_schedule\extensions\chrome\js\ical.js
+
+            //console.log("--->"+index+" "+cals[index]);
+                    //console.log('---------->'+matches[i]+"\n<------------");
+        vComponent = vComponent.replace(/\r?\n[\s]+/igm,''); //unfolding
+        //console.log(nameComponent+' ++++ '+vComponent);
+                //console.log("--vcompo "+index+" "+nom);
+        //console.log(line);
+        if(matches){ //on a trouvÃ© la propriÃ©tÃ© cherchÃ©e
+            //console.log(propName+' ==] params='+RegExp.$2+' / valeur='+RegExp.$3);
+            if(RegExp.$2.length>0){ //il y a des paramÃ¨tres associÃ©s
+    // use setUTC* instead of the constructor, to take timezones into account
+    //  (Google returns the dates in the ICS-file in UTC)
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\rbtv_schedule\extensions\chrome\js\storage.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\SalesTaxes_JavaScript\BasketItem.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\SalesTaxes_JavaScript\MathUtils.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\SalesTaxes_JavaScript\ReceiptDetails.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\SalesTaxes_JavaScript\ReceiptItem.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\SalesTaxes_JavaScript\SalesTaxCalculator.js
+
+            10, // index = salesTaxes.BASIC_TAX
+            5   // index = salesTaxes.IMPORT_DUTY
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\SalesTaxes_JavaScript\SalesTaxCalculatorSpec.js
+
+--------------------------------------------------------------------
+Filepath Analyzed was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\SalesTaxes_JavaScript\SalesTaxTypes.js
+
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\SalesTaxes_JavaScript\Jasmine\lib\jasmine-1.3.1\jasmine-html.js
+Filepath IGNORED was C:\Users\dav\Documents\GitHub\Teoretiskt arbete\Javascript\SalesTaxes_JavaScript\Jasmine\lib\jasmine-1.3.1\jasmine.js
+
+TOTAL LINES SCANNED
+5558
+TOTAL COMMENTS LINES
+228
+AVERAGE COMMENTS CHARACTER LENGHT
+41
+TOTAL TODO COMMENTS
+5

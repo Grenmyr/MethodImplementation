@@ -9,12 +9,15 @@ namespace oktogit
 {
     public class RepositoryScraper
     {
+        // filename of text document
+        private string _filename;
         // Add Path to folder here, and set extension to *.cs or *.js
-        public string[] _filePaths;
+        private string[] _filePaths;
 
-        public RepositoryScraper(string [] filePaths)
+        public RepositoryScraper(string [] filePaths, string filename)
         {
             _filePaths = filePaths;
+            _filename = filename;
         }
 
         /// <summary>
@@ -32,14 +35,14 @@ namespace oktogit
             // Total mount of todo comments
             int todoComment = 0;
 
-            using (TextWriter tw = new StreamWriter("CommentSummary.txt"))
+            using (TextWriter tw = new StreamWriter(_filename))
             {
                 // loop through all files
                 foreach (var item in _filePaths)
                 {
                     
-                    // exclude all files that start with AssemblyInfo and Jasmine
-                    if (!(item.Contains("AssemblyInfo.cs") || item.Contains("Jasmine")))
+                    // ADD all files that should be Excluded here
+                    if (!(item.Contains("AssemblyInfo") || item.Contains("Jasmine")))
                     {
                         tw.WriteLine("--------------------------------------------------------------------");
                         tw.WriteLine(String.Format("Filepath Analyzed was {0}", item));
